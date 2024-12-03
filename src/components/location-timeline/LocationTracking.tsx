@@ -7,10 +7,11 @@ const LocationTracking = () => {
   const mapRef = useRef<any>();
   const mapContainerRef = useRef<any>();
   const [currentLocation, SetCurrentLocation] = useState<any>();
-
+  
+  const key = import.meta.env.VITE_MAP_BOX_API_KEY
+  
   useEffect(() => {
-    mapboxgl.accessToken =
-      "pk.eyJ1IjoiaWFtamFpbWluZGFtb3IiLCJhIjoiY200NnB1M3R1MTRmZjJxb2JrYmkweDV6ayJ9.5IkuF_yDP5fPgoVYEJGIFA";
+    mapboxgl.accessToken = key;
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/mapbox/streets-v12",
@@ -40,10 +41,9 @@ const LocationTracking = () => {
       return path;
     };
 
-    // create a function to make a directions request
     const getRoute = async () => {
       const query = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/driving/${parseStringData()}?alternatives=true&geometries=geojson&language=en&overview=full&steps=true&access_token=pk.eyJ1IjoiaWFtamFpbWluZGFtb3IiLCJhIjoiY200NnB1M3R1MTRmZjJxb2JrYmkweDV6ayJ9.5IkuF_yDP5fPgoVYEJGIFA`,
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${parseStringData()}?alternatives=true&geometries=geojson&language=en&overview=full&steps=true&access_token=${key}`,
         { method: "GET" }
       );
 
@@ -59,11 +59,10 @@ const LocationTracking = () => {
           coordinates: route,
         },
       };
-      // if the route already exists on the map, we'll reset it using setData
+
       if (mapRef.current.getSource("route")) {
         mapRef.current.getSource("route").setData(geojson);
       }
-      // otherwise, we'll make a new request
       else {
         mapRef.current.addLayer({
           id: "route",
@@ -83,12 +82,9 @@ const LocationTracking = () => {
           },
         });
       }
-      // add turn instructions here at the end
     }
 
     mapRef.current.on("load", () => {
-      // make an initial directions request that
-      // starts and ends at the same location
       getRoute();
     });
 
