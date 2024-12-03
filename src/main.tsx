@@ -27,6 +27,10 @@ import LocationTracking from "./components/location-timeline/LocationTracking.ts
 
 const router = createBrowserRouter([
   {
+    path:"/Location",
+    element: <LocationTracking/>
+  },
+  {
     path: "/",
     element: <Home />,
   },
@@ -117,9 +121,6 @@ const router = createBrowserRouter([
   {
     path: "/User/LogOut",
     element: <LogOut />,
-  },{
-    path:"/User/Location-Timeline",
-    element:<LocationTracking/>
   }
 ]);
 
@@ -129,8 +130,3 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <App />
   </Provider>
 );
-
-// <React.StrictMode>
-{
-  /* </React.StrictMode> */
-}

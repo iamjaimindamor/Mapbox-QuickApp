@@ -12,93 +12,92 @@ import { RootState } from "../../store";
 import Path from "../../assets/route.png";
 
 const SideBar = () => {
-    const isAdmin = useAppSelector((state: RootState) => state.auth.rolesList);
-    const username = useAppSelector((state: RootState) => state.auth.userName);
+  const isAdmin = useAppSelector((state: RootState) => state.auth.rolesList);
+  const username = useAppSelector((state: RootState) => state.auth.userName);
 
-    return (
-        <div className="sidebar">
-            <Link to={`/${username}`}>
-                <Tooltip title="Welcome" placement="right" arrow>
-                    <img src={logo} className="sidebar_logo" />
+  return (
+    <div className="qasidebar">
+      <Link to={`/${username}`}>
+        <Tooltip title="Welcome" placement="right" arrow>
+          <img src={logo} className="sidebar_logo" />
+        </Tooltip>
+      </Link>
+      <br />
+      <br />
+      <ul className="list">
+        <li>
+          <Link to={`/Profile/${username}`} className="sidebar_link">
+            <Tooltip title="User Profile" placement="right" arrow>
+              <img
+                className="profile"
+                alt="profile"
+                src={
+                  window.location.pathname === `/Profile/${username}`
+                    ? `${Selectedprofile}`
+                    : `${profile}`
+                }
+              />
+            </Tooltip>
+          </Link>
+        </li>
+        <br />
+        <br />
+        {isAdmin.includes("ADMIN") ? (
+          <>
+            <li>
+              <Link to="/Admin" className="sidebar_link">
+                <Tooltip title="Admin Panel" placement="right" arrow>
+                  <img
+                    className="profile"
+                    alt="profile"
+                    src={
+                      window.location.pathname === "/Admin"
+                        ? `${Selectedadmin}`
+                        : `${admin}`
+                    }
+                  />
                 </Tooltip>
-            </Link>
+              </Link>
+            </li>
             <br />
             <br />
-            <ul className="list">
-                <li>
-                    <Link to={`/Profile/${username}`} className="sidebar_link">
-                        <Tooltip title="User Profile" placement="right" arrow>
-                            <img
-                                className="profile"
-                                alt="profile"
-                                src={
-                                    window.location.pathname === `/Profile/${username}`
-                                        ? `${Selectedprofile}`
-                                        : `${profile}`
-                                }
-                            />
-                        </Tooltip>
-                    </Link>
-                </li>
-                <br />
-                <br />
-                {isAdmin.includes("ADMIN") ? (
-                    <>
-                        <li>
-                            <Link to="/Admin" className="sidebar_link">
-                                <Tooltip title="Admin Panel" placement="right" arrow>
-                                    <img
-                                        className="profile"
-                                        alt="profile"
-                                        src={
-                                            window.location.pathname === "/Admin"
-                                                ? `${Selectedadmin}`
-                                                : `${admin}`
-                                        }
-                                    />
-                                </Tooltip>
-                            </Link>
-                        </li>
-                        <br />
-                        <br />
-                    </>
-                ) : (
-                    ""
-                )}
+          </>
+        ) : (
+          ""
+        )}
 
-                <li>
-                    <Link to="/User/Location-Timeline" className="sidebar_link">
-                        <Tooltip title="Location Timeline" placement="right" arrow>
-                            <img
-                                className="profile"
-                                alt="profile"
-                                src={Path}
-                                style={{filter:"invert(1)"}}
-                            />
-                        </Tooltip>
-                    </Link>
-                </li>
-<br/>
-<br/>
-                <li>
-                    <Link to="/User/LogOut" className="sidebar_link">
-                        <Tooltip title="Log Out" placement="right" arrow>
-                            <img
-                                className="profile"
-                                alt="profile"
-                                src={
-                                    window.location.pathname === "/User/LogOut"
-                                        ? `${LoggingOut}`
-                                        : `${SignedIn}`
-                                }
-                            />
-                        </Tooltip>
-                    </Link>
-                </li>
-                
-            </ul>
-        </div>
-    );
+        <li>
+          <Link to="/Location" className="sidebar_link">
+            <Tooltip title="Location Timeline" placement="right" arrow>
+              <img
+                className="profile"
+                alt="profile"
+                src={Path}
+                style={{ filter: "invert(1)" }}
+              />
+            </Tooltip>
+          </Link>
+        </li>
+        <br />
+        <br />
+        <li>
+          <Link to="/User/LogOut" className="sidebar_link">
+            <Tooltip title="Log Out" placement="right" arrow>
+              <img
+                className="profile"
+                alt="profile"
+                src={
+                  window.location.pathname === "/User/LogOut"
+                    ? `${LoggingOut}`
+                    : `${SignedIn}`
+                }
+              />
+            </Tooltip>
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
 export default SideBar;
