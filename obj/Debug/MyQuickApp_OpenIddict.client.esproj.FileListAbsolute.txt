@@ -1,0 +1,1 @@
+C:\Working\Mine\MyQuickApp-using-OpenIddict-Authentication-Scheme-master\myquickapp_id.client\obj\Debug\MyQuickApp_OpenIddict.client.esproj.CoreCompileInputs.cache
